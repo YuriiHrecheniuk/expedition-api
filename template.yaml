@@ -5,16 +5,25 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 180
+    MemorySize: 128
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        DATABASE_HOST: DATABASE_HOST,
+        DATABASE_USER: DATABASE_USER,
+        DATABASE_PASSWORD: DATABASE_PASSWORD,
+        DATABASE_NAME: DATABASE_NAME
+
 Resources:
   getAllItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/handlers/get-all-items.getAllItemsHandler
-      Runtime: nodejs20.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
       Description: A simple example includes a HTTP get method to get all items from a MySQL table.
       Events:
         Api:

@@ -11,10 +11,10 @@ export const getAllItemsHandler = async (event: any) => {
     console.info('received:', event);
 
     const connection = await mysql.createConnection({
-        host: 'host.docker.internal',
-        user: 'root',
-        password: 'rr*UWhvUKeR8BL',
-        database: 'demo',
+        host: process.env.DATABASE_HOST,
+        user: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
     });
 
     try {
