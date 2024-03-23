@@ -1,8 +1,6 @@
-import mysql from 'mysql2/promise'
+import { initializeDatabase } from "../db";
+import { Activity, Team, User } from "../db/entities";
 
-/**
- * A simple example includes a HTTP get method to get all items from a DynamoDB table.
- */
 export const getAllItemsHandler = async (event: any) => {
     if (event.httpMethod !== 'GET') {
         throw new Error(`getAllItems only accept GET method, you tried: ${event.httpMethod}`);
@@ -10,20 +8,44 @@ export const getAllItemsHandler = async (event: any) => {
 
     console.info('received:', event);
 
-    const connection = await mysql.createConnection({
-        host: process.env.DATABASE_HOST,
-        user: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PASSWORD,
-        database: process.env.DATABASE_NAME,
-    });
-
     try {
-        const [results, fields] = await connection.query(
-            'SELECT * FROM demo_table'
-        );
+        const db = await initializeDatabase()
+        const userRepository = db.getRepository(User)
+        const teamRepository = db.getRepository(Team)
+        const activityRepository = db.getRepository(Activity)
+
+        // const user = new User()
+        // user.firstName = "Yurii"
+        // user.lastName = "Hrecheniuk"
+        //
+        // const team = new Team()
+        // team.instructor = user
+        // team.name = "Yurii's team"
+        //
+        // const activity = new Activity()
+        // activity.date = new Date()
+        // activity.instructors = [user]
+        // activity.name = "Super activity"
+        // activity.team = team
+        //
+        // await Promise.all([
+        //     userRepository.save(user),
+        //     teamRepository.save(team),
+        //     activityRepository.save(activity)
+        // ])
+
+        const results = await teamRepository.find({
+            relations: {
+                instructor: true
+            },
+            where: {
+                instructor: {
+                    id: "6df0ac42-e266-4caa-9735-1dbc126862e8"
+                }
+            }
+        })
 
         console.log(results); // results contains rows returned by server
-        console.log(fields); // fields contains extra meta data about results, if available
     } catch (err) {
         console.log(err);
     }

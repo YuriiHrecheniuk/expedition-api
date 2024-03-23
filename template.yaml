@@ -9,7 +9,7 @@ Globals:
   Function:
     Runtime: nodejs20.x
     Timeout: 180
-    MemorySize: 128
+    MemorySize: 512
     Architectures:
       - x86_64
     Environment:
@@ -17,7 +17,8 @@ Globals:
         DATABASE_HOST: DATABASE_HOST,
         DATABASE_USER: DATABASE_USER,
         DATABASE_PASSWORD: DATABASE_PASSWORD,
-        DATABASE_NAME: DATABASE_NAME
+        DATABASE_NAME: DATABASE_NAME,
+        DATABASE_PORT: DATABASE_PORT
 
 Resources:
   getAllItemsFunction:
@@ -37,17 +38,16 @@ Resources:
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
-        Format: esm
+        Format: cjs
         Minify: false
         Target: "es2020"
         Sourcemap: true
-        OutExtension:
-          - .js=.mjs
+#        OutExtension:
+#          - .js=.mjs
         EntryPoints:
           - src/handlers/get-all-items.ts
-        Banner:
-          - js=import { createRequire } from 'module'; const require = createRequire(import.meta.url);
-
+#        Banner:
+#          - js=import { createRequire } from 'module'; const require = createRequire(import.meta.url);
 
 Outputs:
   WebEndpoint:
