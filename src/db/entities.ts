@@ -35,19 +35,31 @@ export class User {
 @Entity()
 export class Participant {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    readonly id!: string
 
     @Column("varchar", { length: 256 })
-    firstName!: string
+    readonly firstName: string
 
     @Column("varchar", { length: 256 })
-    lastName!: string
+    readonly lastName: string
 
-    @Column("date")
-    birthDate!: Date
+    @Column("date", { nullable: true })
+    readonly birthDate: Date | null
 
-    @ManyToOne(() => Team)
-    team!: Team
+    @ManyToOne(() => Team, { nullable: true })
+    readonly team: Team | null
+
+    constructor(
+        firstName: string,
+        lastName: string,
+        birthDate: Date | null = null,
+        team: Team | null = null
+    ) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.birthDate = birthDate
+        this.team = team
+    }
 }
 
 @Entity()
@@ -61,7 +73,7 @@ export class Score {
     @ManyToOne(() => Participant)
     participant!: Participant
 
-    @Column("int", {unsigned: true})
+    @Column("int", { unsigned: true })
     score!: number;
 
     @Column("varchar")
@@ -77,9 +89,9 @@ export class Score {
 @Entity()
 export class Team {
     @PrimaryGeneratedColumn("uuid")
-    id!: number
+    id!: string
 
-    @Column("varchar", {length: 256})
+    @Column("varchar", { length: 256 })
     name!: string
 
     @OneToOne(() => User)

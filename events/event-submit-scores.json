@@ -1,0 +1,4 @@
+{
+    "httpMethod": "POST",
+    "body": "[{\"activityId\":\"53a07174-4dda-4732-b65d-d8f5de4d5826\",\"score\":50,\"participantId\":\"53a07174-4dda-4732-b65d-d8f5de4d5826\",\"description\":\"Sdkadksadkas\"}]"
+}
