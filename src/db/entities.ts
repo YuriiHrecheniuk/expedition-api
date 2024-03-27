@@ -96,4 +96,9 @@ export class Team {
 
     @OneToOne(() => User)
     instructor!: User
+
+    constructor(name: string, instructor: User) {
+        this.name = name
+        this.instructor = instructor
+    }
 }

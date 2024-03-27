@@ -23,7 +23,7 @@
     "scripts": {
         "test": "jest",
         "build": "tsc --noEmit && sam build",
-        "start": "npm run build && sam local start-api --env-vars env-local.json",
-        "start:watch": "nodemon -w src -e ts -x npm start"
+        "build:watch": "nodemon -e ts -x npm run build",
+        "start": "sam local start-api --env-vars env-local.json"
     }
 }
