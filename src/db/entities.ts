@@ -99,14 +99,14 @@ export class Team {
     @PrimaryGeneratedColumn("uuid")
     id!: string
 
-    @Column("varchar", { length: 256 })
-    name!: string
+    @Column("varchar", { length: 256, nullable: true })
+    name!: string | null
 
     @OneToOne(() => User)
     @JoinColumn()
     instructor!: User
 
-    constructor(name: string, instructor: User) {
+    constructor(instructor: User, name: string | null) {
         this.name = name
         this.instructor = instructor
     }

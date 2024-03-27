@@ -26,7 +26,7 @@ export const createTeam = postRequestHandler(async (event) => {
 type Body = z.infer<typeof bodySchema>
 
 const bodySchema = z.object({
-    name: z.string(),
+    name: z.string().nullish().default(null),
     instructorId: z.string().uuid(),
 })
 
@@ -37,6 +37,6 @@ const getUser = async (usersRepository: Repository<User>, id: string): Promise<U
 
 const buildTeam = (body: Body, instructor: User): Team =>
     new Team(
-        body.name,
-        instructor
+        instructor,
+        body.name
     )
