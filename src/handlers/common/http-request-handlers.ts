@@ -15,16 +15,20 @@ export const postRequestHandler = (handleFn: HandleFn) => httpRequestHandler(Htt
 const httpRequestHandler = (method: HttpMethod,
                             handleFn: HandleFn) =>
     async (event: APIGatewayProxyEvent) => {
-        if (event.httpMethod !== method) {
-            throw new Error(`Unhandled HTTP method: ${event.httpMethod} != ${method}`);
-        }
-
         try {
+            validateHttpMethod(event, method)
+
             return await handleFn(event);
         } catch (error) {
             return handleError(error)
         }
     }
+
+const validateHttpMethod = (event: APIGatewayProxyEvent, method: HttpMethod) => {
+    if (event.httpMethod !== method) {
+        throw new Error(`Unhandled HTTP method: ${event.httpMethod} != ${method}`);
+    }
+}
 
 const handleError = (error: unknown): APIGatewayProxyResult => {
     if (error instanceof HttpError) {

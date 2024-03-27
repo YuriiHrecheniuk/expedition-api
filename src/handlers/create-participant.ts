@@ -1,22 +1,21 @@
-import { postRequestHandler } from "./common/http-request-handlers";
-import { z } from "zod";
-import { initializeDatabase } from "../db";
-import { Participant, Team } from "../db/entities";
 import { NotFound } from 'http-errors'
 import { Repository } from "typeorm";
+import { z } from "zod";
+import { initializeRepositories } from "../db";
+import { Participant, Team } from "../db/entities";
+import { validateBody } from "./common/event-validations";
+import { postRequestHandler } from "./common/http-request-handlers";
 
 export const createParticipant = postRequestHandler(async (event) => {
-    const body = bodySchema.parse(JSON.parse(event.body!))
+    const body: Body = validateBody(event, bodySchema)
 
-    const db = await initializeDatabase()
-    const participantRepository = db.getRepository(Participant)
-    const teamsRepository = db.getRepository(Team)
+    const { teamsRepository, participantsRepository } = await initializeRepositories()
 
     const team = await getTeam(teamsRepository, body.teamId)
 
     const participant = buildParticipant(body, team)
 
-    const record = await participantRepository.save(participant)
+    const record = await participantsRepository.save(participant)
 
     return {
         statusCode: 200,
@@ -31,7 +30,9 @@ const bodySchema = z.object({
     teamId: z.string().uuid().nullish().default(null)
 })
 
-const buildParticipant = (body: z.infer<typeof bodySchema>, team: Team | null = null): Participant =>
+type Body = z.infer<typeof bodySchema>
+
+const buildParticipant = (body: Body, team: Team | null = null): Participant =>
     new Participant(
         body.firstName,
         body.lastName,

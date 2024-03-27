@@ -14,7 +14,25 @@ const AppDataSource = new DataSource({
     logging: false,
 })
 
-export const initializeDatabase = async (): Promise<DataSource> => {
+export const initializeRepositories = async () => {
+    const db = await initializeDatabase()
+
+    const participantsRepository = db.getRepository(Participant)
+    const teamsRepository = db.getRepository(Team)
+    const usersRepository = db.getRepository(User)
+    const activitiesRepository = db.getRepository(Activity)
+    const scoresRepository = db.getRepository(Score)
+
+    return {
+        participantsRepository,
+        teamsRepository,
+        usersRepository,
+        activitiesRepository,
+        scoresRepository
+    } as const
+}
+
+const initializeDatabase = async (): Promise<DataSource> => {
     if (AppDataSource.isInitialized)
         return AppDataSource
 
