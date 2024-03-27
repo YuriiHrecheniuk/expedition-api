@@ -69,6 +69,30 @@ Resources:
         EntryPoints:
           - src/handlers/create-team.ts
 
+  createUserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/create-user.createUser
+      Description: Function that creates new user
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /users/
+            Method: POST
+      Policies:
+        - AmazonRDSFullAccess
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/create-user.ts
+
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"

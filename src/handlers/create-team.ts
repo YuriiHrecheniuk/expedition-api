@@ -1,12 +1,12 @@
 import { NotFound } from "http-errors";
 import { Repository } from "typeorm";
+import { z } from "zod";
 import { initializeRepositories } from "../db";
 import { Team, User } from "../db/entities";
 import { validateBody } from "./common/event-validations";
 import { postRequestHandler } from "./common/http-request-handlers";
-import { z } from "zod";
 
-const createTeam = postRequestHandler(async (event) => {
+export const createTeam = postRequestHandler(async (event) => {
     const body: Body = validateBody(event, bodySchema)
 
     const { teamsRepository, usersRepository } = await initializeRepositories()

@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Activity {
@@ -30,6 +30,14 @@ export class User {
 
     @Column("varchar", { length: 256 })
     lastName!: string
+
+    constructor(
+        firstName: string,
+        lastName: string
+    ) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
 }
 
 @Entity()
@@ -95,6 +103,7 @@ export class Team {
     name!: string
 
     @OneToOne(() => User)
+    @JoinColumn()
     instructor!: User
 
     constructor(name: string, instructor: User) {
