@@ -1,5 +1,15 @@
 import "reflect-metadata"
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from 'typeorm'
 
 @Entity()
 export class Activity {
@@ -108,8 +118,8 @@ export class Score {
     @ManyToOne(() => User)
     createdBy!: User
 
-    @Column("datetime")
-    createdAt!: Date
+    @CreateDateColumn()
+    createdAt!: Date;
 }
 
 @Entity()
