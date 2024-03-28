@@ -93,6 +93,30 @@ Resources:
         EntryPoints:
           - src/handlers/create-user.ts
 
+  createActivitiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/create-activities.createActivities
+      Description: Function that creates new activities
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /activities/
+            Method: POST
+      Policies:
+        - AmazonRDSFullAccess
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/create-activities.ts
+
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"

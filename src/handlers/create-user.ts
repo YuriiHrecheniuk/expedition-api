@@ -9,7 +9,7 @@ export const createUser = postRequestHandler(async (event) => {
 
     const { usersRepository } = await initializeRepositories()
 
-    const user = buildUser(body)
+    const user = new User(body)
 
     const record = await usersRepository.save(user)
 
@@ -25,9 +25,3 @@ const bodySchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
 })
-
-const buildUser = (body: Body) =>
-    new User(
-        body.firstName,
-        body.lastName
-    )

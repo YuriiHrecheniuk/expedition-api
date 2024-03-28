@@ -4,46 +4,62 @@ import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne,
 @Entity()
 export class Activity {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    id: string
 
     @Column("varchar", { length: 256 })
-    name!: string
+    name: string
 
     @ManyToOne(() => Team)
-    team!: Team
+    team: Team
 
     @ManyToMany(() => User)
     @JoinTable()
-    instructors!: User[]
+    instructors: User[]
 
-    @Column("date")
-    date!: Date
+    @Column("datetime")
+    date: Date
+
+    constructor({
+                    id,
+                    name,
+                    team,
+                    instructors,
+                    date
+                }: Partial<Activity> = {}) {
+        this.id = id!
+        this.name = name!
+        this.team = team!
+        this.instructors = instructors!
+        this.date = date!
+    }
 }
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    id: string
 
     @Column("varchar", { length: 256 })
-    firstName!: string
+    firstName: string
 
     @Column("varchar", { length: 256 })
-    lastName!: string
+    lastName: string
 
-    constructor(
-        firstName: string,
-        lastName: string
-    ) {
-        this.firstName = firstName
-        this.lastName = lastName
+    constructor({
+                    id,
+                    firstName,
+                    lastName
+                }: Partial<User> = {}) {
+        this.id = id!
+        this.firstName = firstName!
+        this.lastName = lastName!
     }
 }
 
 @Entity()
 export class Participant {
     @PrimaryGeneratedColumn("uuid")
-    readonly id!: string
+    readonly id: string
 
     @Column("varchar", { length: 256 })
     readonly firstName: string
@@ -57,16 +73,18 @@ export class Participant {
     @ManyToOne(() => Team, { nullable: true })
     readonly team: Team | null
 
-    constructor(
-        firstName: string,
-        lastName: string,
-        birthDate: Date | null = null,
-        team: Team | null = null
-    ) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.birthDate = birthDate
-        this.team = team
+    constructor({
+                    id,
+                    firstName,
+                    lastName,
+                    birthDate,
+                    team
+                }: Partial<Participant> = {}) {
+        this.id = id!
+        this.firstName = firstName!
+        this.lastName = lastName!
+        this.birthDate = birthDate!
+        this.team = team!
     }
 }
 
@@ -97,17 +115,22 @@ export class Score {
 @Entity()
 export class Team {
     @PrimaryGeneratedColumn("uuid")
-    id!: string
+    id: string
 
     @Column("varchar", { length: 256, nullable: true })
-    name!: string | null
+    name: string | null
 
     @OneToOne(() => User)
     @JoinColumn()
-    instructor!: User
+    instructor: User
 
-    constructor(instructor: User, name: string | null) {
-        this.name = name
-        this.instructor = instructor
+    constructor({
+                    id,
+                    name,
+                    instructor
+                }: Partial<Team> = {}) {
+        this.id = id!
+        this.name = name!
+        this.instructor = instructor!
     }
 }
