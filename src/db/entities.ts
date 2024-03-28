@@ -112,14 +112,30 @@ export class Score {
     @Column("int", { unsigned: true })
     score!: number;
 
-    @Column("varchar")
-    description!: string;
+    @Column("varchar", { nullable: true })
+    description!: string | null;
 
     @ManyToOne(() => User)
     createdBy!: User
 
     @CreateDateColumn()
     createdAt!: Date;
+
+    constructor({
+                    id,
+                    activity,
+                    participant,
+                    score,
+                    description,
+                    createdBy,
+                }: Partial<Score> = {}) {
+        this.id = id!;
+        this.activity = activity!;
+        this.participant = participant!;
+        this.score = score!;
+        this.description = description!;
+        this.createdBy = createdBy!;
+    }
 }
 
 @Entity()

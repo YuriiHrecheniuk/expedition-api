@@ -117,6 +117,30 @@ Resources:
         EntryPoints:
           - src/handlers/create-activities.ts
 
+  submitScoresFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/submit-scores.submitScores
+      Description: Function that submits scores
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /scores/
+            Method: POST
+      Policies:
+        - AmazonRDSFullAccess
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/submit-scores.ts
+
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
