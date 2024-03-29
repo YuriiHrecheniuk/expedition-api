@@ -141,6 +141,30 @@ Resources:
         EntryPoints:
           - src/handlers/submit-scores.ts
 
+  getMyActivitiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-activities.getActivities
+      Description: Function that gets my activities
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /activities/
+            Method: GET
+      Policies:
+        - AmazonRDSFullAccess
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/get-activities.ts
+
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
