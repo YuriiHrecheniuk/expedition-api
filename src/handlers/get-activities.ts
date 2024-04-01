@@ -7,8 +7,8 @@ export const getActivities = getRequestHandler(async (event) => {
 
     const activities = await activitiesRepository
         .createQueryBuilder("activity")
+        .leftJoin(Participant, "participant", "activity.teamId = participant.teamId")
         .leftJoin(Score, "score", "activity.id = score.activityId")
-        .leftJoin(Participant, "participant", "score.participantId = participant.id")
         .groupBy("activity.id")
         .addGroupBy("activity.teamId")
         .having("COUNT(DISTINCT score.id) != COUNT(DISTINCT participant.id)")
