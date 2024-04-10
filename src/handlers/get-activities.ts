@@ -7,6 +7,8 @@ export const getActivities = getRequestHandler(async (event) => {
 
     const activities = await activitiesRepository
         .createQueryBuilder("activity")
+        .leftJoinAndSelect("activity.instructors", "instructors")
+        .leftJoinAndSelect("activity.team", "team")
         .leftJoin(Participant, "participant", "activity.teamId = participant.teamId")
         .leftJoin(Score, "score", "activity.id = score.activityId")
         .groupBy("activity.id")
