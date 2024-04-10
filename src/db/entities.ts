@@ -27,20 +27,25 @@ export class Activity {
     instructors: User[]
 
     @Column("datetime")
-    date: Date
+    startDate: Date
+
+    @Column("datetime")
+    endDate: Date
 
     constructor({
                     id,
                     name,
                     team,
                     instructors,
-                    date
+                    startDate,
+                    endDate
                 }: Partial<Activity> = {}) {
         this.id = id!
         this.name = name!
         this.team = team!
         this.instructors = instructors!
-        this.date = date!
+        this.startDate = startDate!
+        this.endDate = endDate!
     }
 }
 

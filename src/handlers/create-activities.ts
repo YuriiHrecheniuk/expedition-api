@@ -17,7 +17,8 @@ export const createActivities = postRequestHandler(async (event) => {
             name: payload.name,
             team,
             instructors,
-            date: payload.date
+            startDate: payload.startDate,
+            endDate: payload.endDate
         })
     })
 
@@ -33,7 +34,8 @@ const activityPayloadSchema = z.object({
     name: z.string(),
     teamId: z.string().uuid(),
     instructors: z.array(z.string().uuid()),
-    date: z.coerce.date(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date()
 })
 
 type Body = z.infer<typeof bodySchema>
