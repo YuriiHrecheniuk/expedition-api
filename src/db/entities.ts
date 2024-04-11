@@ -120,8 +120,8 @@ export class Score {
     @Column("varchar", { nullable: true })
     description!: string | null;
 
-    @ManyToOne(() => User)
-    createdBy!: User
+    @ManyToOne(() => User, { nullable: true })
+    createdBy!: User | null
 
     @CreateDateColumn()
     createdAt!: Date;

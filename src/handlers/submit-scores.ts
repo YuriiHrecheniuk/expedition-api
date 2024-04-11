@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { initializeRepositories } from "../db";
-import { Activity, Participant, Score, User } from "../db/entities";
+import { Activity, Participant, Score } from "../db/entities";
 import { validateBody } from "./common/event-validations";
 import { postRequestHandler } from "./common/http-request-handlers";
 
@@ -15,7 +15,6 @@ export const submitScores = postRequestHandler(async (event) => {
             participant: new Participant({ id: payload.participantId }),
             score: payload.score,
             description: payload.description,
-            createdBy: new User({ id: payload.createdBy })
         })
     )
 
@@ -33,6 +32,5 @@ const bodySchema = z.array(z.object({
     activityId: z.string().uuid(),
     participantId: z.string().uuid(),
     score: z.number().int().positive(),
-    description: z.string().nullish().default(null),
-    createdBy: z.string().uuid(),
+    description: z.string().nullish().default(null)
 }))
