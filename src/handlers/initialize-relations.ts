@@ -55,14 +55,14 @@ export const initializeRelations = postRequestHandler(async () => {
 
     function initializeActivities(yuriiTeam: Team, vladTeam: Team): Promise<[Activity, Activity]> {
         const yuriiActivity = new Activity({
-            name: "Yurii's activity",
+            name: "Boating",
             team: yuriiTeam,
             startDate: new Date(),
             endDate: new Date()
         })
 
         const vladActivity = new Activity({
-            name: "Vlad's activity",
+            name: "Swimming",
             team: vladTeam,
             startDate: new Date(),
             endDate: new Date()
