@@ -34,6 +34,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -58,6 +66,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -82,6 +98,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -106,6 +130,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -130,6 +162,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -154,6 +194,14 @@ Resources:
             Method: GET
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -178,6 +226,14 @@ Resources:
             Method: GET
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
@@ -202,6 +258,14 @@ Resources:
             Method: POST
       Policies:
         - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
 
     Metadata:
       BuildMethod: esbuild
