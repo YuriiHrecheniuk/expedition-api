@@ -11,7 +11,7 @@ const AppDataSource = new DataSource({
     database: process.env.DATABASE_NAME,
     entities: [Team, Participant, Score, User, Activity],
     synchronize: true,
-    logging: false,
+    logging: true,
 })
 
 export const initializeRepositories = async () => {

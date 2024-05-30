@@ -1,9 +1,12 @@
 import { initializeRepositories } from "../db";
 import { Participant, Score } from "../db/entities";
+import { authorize } from "./common/authorizer";
 import { getRequestHandler } from "./common/http-request-handlers";
 
 export const getActivities = getRequestHandler(async (event) => {
-    const { activitiesRepository } = await initializeRepositories()
+    const { activitiesRepository, usersRepository } = await initializeRepositories()
+
+    const user = await authorize(event, usersRepository)
 
     const activities = await activitiesRepository
         .createQueryBuilder("activity")
