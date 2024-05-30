@@ -60,14 +60,24 @@ export class User {
     @Column("varchar", { length: 256 })
     lastName: string
 
+    @Column("varchar", { length: 256 })
+    username: string
+
+    @Column("varchar", { length: 256 })
+    password: string
+
     constructor({
                     id,
                     firstName,
-                    lastName
+                    lastName,
+                    username,
+                    password
                 }: Partial<User> = {}) {
         this.id = id!
         this.firstName = firstName!
         this.lastName = lastName!
+        this.username = username!
+        this.password = password!
     }
 }
 
