@@ -3,7 +3,24 @@ Description: >-
   expedition-api
 
 Transform:
-- AWS::Serverless-2016-10-31
+  - AWS::Serverless-2016-10-31
+
+Parameters:
+  DatabaseHost:
+    Type: String
+    Description: Database host
+  DatabaseUser:
+    Type: String
+    Description: Database user
+  DatabasePassword:
+    Type: String
+    Description: Database password
+  DatabaseName:
+    Type: String
+    Description: Database name
+  DatabasePort:
+    Type: Number
+    Description: Database port
 
 Globals:
   Function:
@@ -14,11 +31,11 @@ Globals:
       - x86_64
     Environment:
       Variables:
-        DATABASE_HOST: DATABASE_HOST,
-        DATABASE_USER: DATABASE_USER,
-        DATABASE_PASSWORD: DATABASE_PASSWORD,
-        DATABASE_NAME: DATABASE_NAME,
-        DATABASE_PORT: DATABASE_PORT
+        DATABASE_HOST: !Ref DatabaseHost
+        DATABASE_USER: !Ref DatabaseUser
+        DATABASE_PASSWORD: !Ref DatabasePassword
+        DATABASE_NAME: !Ref DatabaseName
+        DATABASE_PORT: !Ref DatabasePort
 
 Resources:
   createParticipantsFunction:
