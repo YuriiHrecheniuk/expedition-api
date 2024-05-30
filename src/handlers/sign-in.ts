@@ -16,7 +16,7 @@ export const signIn = postRequestHandler(async (event) => {
     if (!user)
         throw BadRequest('Invalid credentials')
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!)
+    const token = "Bearer " + jwt.sign({ id: user.id }, process.env.JWT_SECRET!)
 
     return {
         statusCode: 200,
