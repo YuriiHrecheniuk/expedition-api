@@ -21,6 +21,9 @@ Parameters:
   DatabasePort:
     Type: Number
     Description: Database port
+  JwtSecret:
+    Type: String
+    Description: JWT secret
 
 Globals:
   Function:
@@ -36,6 +39,7 @@ Globals:
         DATABASE_PASSWORD: !Ref DatabasePassword
         DATABASE_NAME: !Ref DatabaseName
         DATABASE_PORT: !Ref DatabasePort
+        JWT_SECRET: !Ref JwtSecret
 
 Resources:
   createParticipantsFunction:
@@ -133,6 +137,38 @@ Resources:
         Sourcemap: true
         EntryPoints:
           - src/handlers/create-user.ts
+
+  signInFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/sign-in.signIn
+      Description: Function that signs in
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /sign-in/
+            Method: POST
+      Policies:
+        - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/sign-in.ts
 
   createActivitiesFunction:
     Type: AWS::Serverless::Function
