@@ -11,12 +11,12 @@ export const createActivities = postRequestHandler(async (event) => {
 
     const activities = body.map(payload => {
         const team = new Team({ id: payload.teamId })
-        const instructors = payload.instructors.map(id => new User({ id }))
+        const instructor = new User({ id: payload.instructorId })
 
         return new Activity({
             name: payload.name,
             team,
-            instructors,
+            instructor,
             startDate: payload.startDate,
             endDate: payload.endDate
         })
@@ -33,7 +33,7 @@ export const createActivities = postRequestHandler(async (event) => {
 const activityPayloadSchema = z.object({
     name: z.string(),
     teamId: z.string().uuid(),
-    instructors: z.array(z.string().uuid()),
+    instructorId: z.string().uuid(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date()
 })

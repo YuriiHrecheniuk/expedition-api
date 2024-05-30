@@ -1,15 +1,5 @@
 import "reflect-metadata"
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinColumn,
-    JoinTable,
-    ManyToMany,
-    ManyToOne,
-    OneToOne,
-    PrimaryGeneratedColumn
-} from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Activity {
@@ -22,9 +12,8 @@ export class Activity {
     @ManyToOne(() => Team)
     team: Team
 
-    @ManyToMany(() => User)
-    @JoinTable()
-    instructors: User[]
+    @ManyToOne(() => User)
+    instructor: User
 
     @Column("datetime")
     startDate: Date
@@ -36,14 +25,14 @@ export class Activity {
                     id,
                     name,
                     team,
-                    instructors,
+                    instructor,
                     startDate,
                     endDate
                 }: Partial<Activity> = {}) {
         this.id = id!
         this.name = name!
         this.team = team!
-        this.instructors = instructors!
+        this.instructor = instructor!
         this.startDate = startDate!
         this.endDate = endDate!
     }

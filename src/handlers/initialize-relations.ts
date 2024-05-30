@@ -1,5 +1,6 @@
 import { initializeRepositories } from "../db";
 import { Activity, Participant, Team, User } from "../db/entities";
+import { hashPassword } from "./common/hasher";
 import { postRequestHandler } from "./common/http-request-handlers";
 
 export const initializeRelations = postRequestHandler(async () => {
@@ -12,7 +13,7 @@ export const initializeRelations = postRequestHandler(async () => {
 
     const [yurii, vlad, dima] = await initializeUsers()
     const [yuriiTeam, vladTeam] = await initializeTeams(yurii, vlad)
-    await initializeActivities(yuriiTeam, vladTeam)
+    await initializeActivities(yuriiTeam, vladTeam, yurii, vlad)
     await initializeParticipants(yuriiTeam, vladTeam)
 
     return {
@@ -23,17 +24,23 @@ export const initializeRelations = postRequestHandler(async () => {
     function initializeUsers(): Promise<[User, User, User]> {
         const yurii = new User({
             firstName: "Yurii",
-            lastName: "Hrecheniuk"
+            lastName: "Hrecheniuk",
+            username: "yurii",
+            password: hashPassword("yurii1234")
         })
 
         const vlad = new User({
             firstName: "Vlad",
-            lastName: "Kot"
+            lastName: "Kot",
+            username: "clout",
+            password: hashPassword("clout1234")
         })
 
         const dima = new User({
             firstName: "Dima",
-            lastName: "Marshalok"
+            lastName: "Marshalok",
+            username: "dima",
+            password: hashPassword("dima1234")
         })
 
         return usersRepository.save([yurii, vlad, dima]) as Promise<[User, User, User]>
@@ -53,10 +60,11 @@ export const initializeRelations = postRequestHandler(async () => {
         return teamsRepository.save([yuriiTeam, vladTeam]) as Promise<[Team, Team]>
     }
 
-    function initializeActivities(yuriiTeam: Team, vladTeam: Team): Promise<[Activity, Activity]> {
+    function initializeActivities(yuriiTeam: Team, vladTeam: Team, yurii: User, vlad: User): Promise<[Activity, Activity]> {
         const yuriiActivity = new Activity({
             name: "Boating",
             team: yuriiTeam,
+            instructor: vlad,
             startDate: new Date(),
             endDate: new Date()
         })
@@ -64,6 +72,7 @@ export const initializeRelations = postRequestHandler(async () => {
         const vladActivity = new Activity({
             name: "Swimming",
             team: vladTeam,
+            instructor: yurii,
             startDate: new Date(),
             endDate: new Date()
         })
