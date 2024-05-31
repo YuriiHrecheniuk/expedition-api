@@ -234,6 +234,38 @@ Resources:
         EntryPoints:
           - src/handlers/submit-scores.ts
 
+  getTopTeamsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-top-teams.getTopTeams
+      Description: Function that gets top teams
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /teams/top
+            Method: GET
+      Policies:
+        - AmazonRDSFullAccess
+        - AmazonVPCCrossAccountNetworkInterfaceOperations
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0f3bfcf9a0fd05414
+        SubnetIds:
+          - subnet-083ba1b213db6d7f1
+          - subnet-0929d0234f9c7b45e
+          - subnet-0c87d47750dc866aa
+
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: false
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - src/handlers/get-top-teams.ts
+
   getMyActivitiesFunction:
     Type: AWS::Serverless::Function
     Properties:

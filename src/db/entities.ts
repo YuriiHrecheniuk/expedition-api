@@ -1,5 +1,14 @@
 import "reflect-metadata"
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from 'typeorm'
 
 @Entity()
 export class Activity {
@@ -87,18 +96,23 @@ export class Participant {
     @ManyToOne(() => Team, { nullable: true })
     readonly team: Team | null
 
+    @OneToMany(() => Score, score => score.participant)
+    readonly scores: Score[]
+
     constructor({
                     id,
                     firstName,
                     lastName,
                     birthDate,
-                    team
+                    team,
+                    scores
                 }: Partial<Participant> = {}) {
         this.id = id!
         this.firstName = firstName!
         this.lastName = lastName!
         this.birthDate = birthDate!
         this.team = team!
+        this.scores = scores!
     }
 }
 
