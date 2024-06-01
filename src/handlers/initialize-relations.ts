@@ -1,4 +1,5 @@
 import { Chance } from 'chance'
+import { setHours, setMinutes } from 'date-fns'
 import { initializeRepositories } from "../db";
 import { Activity, Participant, Team, User } from "../db/entities";
 import { hashPassword } from "./common/hasher";
@@ -93,15 +94,15 @@ export const initializeRelations = postRequestHandler(async () => {
                 name: "Boating",
                 team: yuriiTeam,
                 instructor: vlad,
-                startDate: new Date(),
-                endDate: new Date()
+                startDate: setMinutes(setHours(new Date(), 10), 0),
+                endDate: setMinutes(setHours(new Date(), 12), 0)
             }),
             new Activity({
                 name: "Archery",
                 team: joeTeam,
                 instructor: vlad,
-                startDate: new Date(),
-                endDate: new Date()
+                startDate: setMinutes(setHours(new Date(), 14), 0),
+                endDate: setMinutes(setHours(new Date(), 16), 0)
             }),
         ]
 
@@ -110,15 +111,15 @@ export const initializeRelations = postRequestHandler(async () => {
                 name: "Swimming",
                 team: vladTeam,
                 instructor: yurii,
-                startDate: new Date(),
-                endDate: new Date()
+                startDate: setMinutes(setHours(new Date(), 10), 0),
+                endDate: setMinutes(setHours(new Date(), 12), 0)
             }),
             new Activity({
                 name: "Climbing",
                 team: volodymyrTeam,
                 instructor: yurii,
-                startDate: new Date(),
-                endDate: new Date()
+                startDate: setMinutes(setHours(new Date(), 14), 0),
+                endDate: setMinutes(setHours(new Date(), 16), 0)
             }),
         ]
 
