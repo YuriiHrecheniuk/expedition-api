@@ -14,7 +14,7 @@ export const getActivities = getRequestHandler(async (event) => {
         .leftJoinAndSelect("activity.team", "team")
         .leftJoin(Participant, "participant", "activity.teamId = participant.teamId")
         .leftJoin(Score, "score", "activity.id = score.activityId")
-        .where("instructor.id = :id", { id: user.id })
+        .where("activity.instructor.id = :id", { id: user.id })
         .groupBy("activity.id")
         .addGroupBy("activity.teamId")
         .having("COUNT(DISTINCT score.id) != COUNT(DISTINCT participant.id)")

@@ -18,7 +18,7 @@ export const initializeRelations = postRequestHandler(async () => {
     const [yurii, vlad, dima, joe, volodymyr] = await initializeUsers()
     const [yuriiTeam, vladTeam, joeTeam, volodymyrTeam] = await initializeTeams(yurii, vlad, joe, volodymyr)
     await initializeActivities(yuriiTeam, vladTeam, joeTeam, volodymyrTeam, yurii, vlad)
-    await initializeParticipants(yuriiTeam, vladTeam)
+    await initializeParticipants(yuriiTeam, vladTeam, joeTeam, volodymyrTeam)
 
     return {
         statusCode: 200,
@@ -126,7 +126,7 @@ export const initializeRelations = postRequestHandler(async () => {
         return activitiesRepository.save([...yuriiActivities, ...vladActivities]) as Promise<[Activity, Activity]>
     }
 
-    async function initializeParticipants(yuriiTeam: Team, vladTeam: Team) {
+    async function initializeParticipants(yuriiTeam: Team, vladTeam: Team, joeTeam: Team, volodymyrTeam: Team) {
         const yuriiParticipants = Array.from(new Array(15), () => {
             return new Participant({
                 firstName: chance.name(),
@@ -145,6 +145,24 @@ export const initializeRelations = postRequestHandler(async () => {
             })
         })
 
-        await participantsRepository.save([...yuriiParticipants, ...vladParticipants])
+        const joeParticipants = Array.from(new Array(15), () => {
+            return new Participant({
+                firstName: chance.name(),
+                lastName: chance.last(),
+                team: joeTeam,
+                birthDate: chance.birthday()
+            })
+        })
+
+        const volodymyrParticipants = Array.from(new Array(15), () => {
+            return new Participant({
+                firstName: chance.name(),
+                lastName: chance.last(),
+                team: volodymyrTeam,
+                birthDate: chance.birthday()
+            })
+        })
+
+        await participantsRepository.save([...yuriiParticipants, ...vladParticipants, ...joeParticipants, ...volodymyrParticipants])
     }
 })
