@@ -6,6 +6,7 @@ import { postRequestHandler } from "./common/http-request-handlers";
 
 export const submitScores = postRequestHandler(async (event) => {
     const body: Body = validateBody(event, bodySchema)
+    console.log(body)
 
     const { scoresRepository } = await initializeRepositories()
 
